@@ -1,0 +1,6 @@
+{
+  "catppuccin": { "branch": "main", "commit": "5b5e3aef9ad7af84f463d17b5479f06b87d5c429" },
+  "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "luarocks": { "branch": "main", "commit": "6663abaa8c6b8037f6046b2e2b40f24aea1f804e" },
+  "nvim-notify": { "branch": "master", "commit": "b5825cf9ee881dd8e43309c93374ed5b87b7a896" }
+}
