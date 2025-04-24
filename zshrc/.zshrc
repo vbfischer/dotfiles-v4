@@ -1,3 +1,6 @@
+# Load secrets not stored in github...
+source "$HOME/.zshrc.local"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -5,7 +8,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source ".zshrc.local"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ZSH_TMUX_CONFIG=$HOME/.config/tmux/tmux.conf
@@ -86,6 +88,7 @@ alias swt="source switch-worktree.sh"
 alias cwt="source create-worktree.sh"
 
 alias nnvim='NVIM_APPNAME="nvim-new" nvim'
+alias astro-nvim='NVIM_APPNAME="nvim-astro" nvim'
 
 # Shell integrations
 eval "$(fzf --zsh)"
