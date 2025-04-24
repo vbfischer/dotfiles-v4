@@ -1,0 +1,2 @@
+# convert files starting with dot- to dot(hidden) files
+--dotfiles
