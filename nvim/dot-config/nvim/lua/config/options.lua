@@ -11,3 +11,5 @@ opt.foldcolumn = "1"
 opt.foldlevel = 99
 opt.foldenable = true
 opt.foldlevel = 99
+
+vim.cmd([[command! -nargs=0 GoToFile :lua Snacks.picker.smart()]])

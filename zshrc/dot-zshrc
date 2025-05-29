@@ -89,6 +89,10 @@ alias cwt="source create-worktree.sh"
 
 alias nnvim='NVIM_APPNAME="nvim-new" nvim'
 alias astro-nvim='NVIM_APPNAME="nvim-astro" nvim'
+alias gws="~/.config/bin/git-worktree-switch.sh"
+alias gwc="~/.config/bin/git-worktree-fzf.sh"
+alias wt-menu="~/.config/bin/git-worktree-menu.sh"
+alias wt="zsh ~/.config/bin/git-worktree-manager.zsh"
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -112,3 +116,5 @@ esac
 PATH=$PATH:~/.config/bin
 
 PATH=~/.console-ninja/.bin:$PATH
+
+export PATH=$PATH:/Users/bfischer/.spicetify

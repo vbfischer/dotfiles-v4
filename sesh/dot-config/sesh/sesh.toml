@@ -1,0 +1,7 @@
+# common
+#
+
+[[session]]
+name = "VCP Main"
+path = "~/code/vcp-web-repo/main"
+startup_command = "nvim +GoToFile"
