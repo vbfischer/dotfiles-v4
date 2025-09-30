@@ -1,7 +1,17 @@
 # common
-#
+
+[default_session]
+startup_command = "tmuxp load mysession -a"
 
 [[session]]
 name = "VCP Main"
-path = "~/code/vcp-web-repo/main"
-startup_command = "nvim +GoToFile"
+path = "~/code/vcp-web/main"
+startup_command = "tmuxp load mysession -a"
+
+[[session]]
+name = "VCP Report Generator Main"
+path = "~/code/vcp-report-generator/main"
+
+[[session]]
+name = "Dotfiles"
+path = "~/dotfiles-v4"

@@ -1,6 +1,14 @@
 return {
-  { "mason-org/mason.nvim", version = "^1.0.0" },
-  { "mason-org/mason-lspconfig.nvim", version = "^1.0.0" },
+  {
+    "tris203/hawtkeys.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = {},
+  },
+  { "mason-org/mason.nvim" },
+  { "mason-org/mason-lspconfig.nvim" },
   {
     "zbirenbaum/copilot.lua",
     optional = true,

@@ -1,0 +1,36 @@
+[user]
+	email = bryce-fischer@idexx.com
+	name = Bryce Fischer
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILEazO7sdahIcVzDyihDcnpkFH2ORSjDHr3iedLjNZxt
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
+[diff]
+	tool = Kaleidoscope
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+	trustExitCode = true
+[merge]
+	tool = Kaleidoscope
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool]
+	prompt = false
+[init]
+	defaultBranch = main
+[push]
+	forceWithLease = true
+
+[alias]
+	clean-gone = "!f() { git for-each-ref --format=\"%(refname:short) %(upstream:track)\" refs/heads | awk '$2 == \"[gone]\" {print $1}' | fzf --multi --prompt=\"Select branches to delete: \" | xargs -r git branch -D; }; f"
+	clean-worktree = "!f() { git worktree list | grep -v \"(bare)\" | fzf --prompt=\"Select worktree to delete: \" --preview=\"echo {} | awk '{print $1}' | xargs ls -la\" | awk '{print $1}' | xargs -r git worktree remove; }; f"
+	wt-status = "!f() { for wt in $(git worktree list --porcelain | grep \"^worktree\" | cut -d\" \" -f2); do echo \"=== $wt ===\"; git -C \"$wt\" status -s; echo; done; }; f"
+	wt-prune = !git worktree prune -v
+	wt-setup = "!f() { \n    branch=\"$1\"; \n    git worktree add \"../$branch\" -b \"$branch\"; \n    cd \"../$branch\"; \n    \n    # Handle Node.js package managers\n    if [ -f \"package.json\" ]; then\n        if [ -f \"pnpm-lock.yaml\" ]; then\n            pnpm install;\n        elif [ -f \"yarn.lock\" ]; then\n            yarn install;\n        elif [ -f \"package-lock.json\" ]; then\n            npm install;\n        else\n            echo \"No lockfile found. Choose package manager:\";\n            echo \"1) pnpm (default)\";\n            echo \"2) yarn\"; \n            echo \"3) npm\";\n            read -p \"Choice [1]: \" pm_choice;\n            case \"${pm_choice:-1}\" in\n                1) pnpm install ;;\n                2) yarn install ;;\n                3) npm install ;;\n                *) pnpm install ;;\n            esac\n        fi\n    elif [ -f \"Gemfile\" ]; then\n        bundle install;\n    else\n        echo \"No package.json or Gemfile found - skipping dependency installation\";\n    fi\n    \n    if command -v tmuxp >/dev/null 2>&1 && [ -f .tmuxp.yaml ]; then\n        tmuxp load -d .tmuxp.yaml;\n    elif command -v sesh >/dev/null 2>&1; then\n        # Create new tmux session first, then let sesh manage it\n        tmux new-session -d -s \"$branch\" -c \"$(pwd)\" 2>/dev/null || true;\n        sesh connect \"$branch\";\n    else\n        echo \"Starting new tmux session...\";\n        tmux new-session -d -s \"$branch\" -c \"$(pwd)\";\n    fi\n}; f"
+	wt-menu = "!f() { \n    echo \"🌳 Git Worktree Menu\";\n    echo \"==================\";\n    echo \"1) List all worktrees\";\n    echo \"2) Show status of all worktrees\";\n    echo \"3) Create new worktree + setup (wt-setup)\";\n    echo \"4) Switch to existing worktree\";\n    echo \"5) Delete worktree interactively\";\n    echo \"6) Clean up stale worktree references\";\n    echo \"7) Clean up branches with gone upstreams\";\n    echo \"8) Exit\";\n    echo;\n    read -p \"Select option [1-8]: \" choice;\n    \n    case \"$choice\" in\n        1)\n            echo \"📋 All worktrees:\";\n            git worktree list;\n            ;;\n        2)\n            echo \"📊 Worktree status overview:\";\n            git wt-status;\n            ;;\n        3)\n            read -p \"Enter branch name for new worktree: \" new_branch;\n            if [ -n \"$new_branch\" ]; then\n                git wt-setup \"$new_branch\";\n            else\n                echo \"❌ No branch name provided\";\n            fi\n            ;;\n        4)\n            echo \"🔄 Select worktree to switch to:\";\n            wt_path=$(git worktree list | fzf --prompt=\"Switch to: \" | awk \"{print \\$1}\");\n            if [ -n \"$wt_path\" ]; then\n                cd \"$wt_path\" && echo \"✅ Switched to: $wt_path\";\n            else\n                echo \"❌ No worktree selected\";\n            fi\n            ;;\n        5)\n            echo \"🗑️  Select worktree to delete:\";\n            git clean-worktree;\n            ;;\n        6)\n            echo \"🧹 Pruning stale worktree references:\";\n            git wt-prune;\n            ;;\n        7)\n            echo \"🔥 Cleaning branches with gone upstreams:\";\n            git clean-gone;\n            ;;\n        8)\n            echo \"👋 Goodbye!\";\n            ;;\n        *)\n            echo \"❌ Invalid option. Please choose 1-8.\";\n            ;;\n    esac\n}; f"

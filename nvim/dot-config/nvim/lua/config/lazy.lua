@@ -39,8 +39,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.lang.toml" },
 
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-
     { import = "plugins" },
   },
   defaults = {

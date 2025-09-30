@@ -1,4 +1,7 @@
 repos:
   vcp-web:
     defaultBranch: main
-
+    worktreeTargetDir: /code/vcp-web
+  vcp-report-generator:
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-report-generator

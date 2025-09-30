@@ -37,7 +37,6 @@ zinit light Aloxaf/fzf-tab
 
 # OMZ Plugins
 zinit snippet OMZP::git
-zinit snippet OMZP::nvm
 zinit snippet OMZP::jsontools
 zinit snippet OMZP::gitignore
 
@@ -92,7 +91,25 @@ alias astro-nvim='NVIM_APPNAME="nvim-astro" nvim'
 alias gws="~/.config/bin/git-worktree-switch.sh"
 alias gwc="~/.config/bin/git-worktree-fzf.sh"
 alias wt-menu="~/.config/bin/git-worktree-menu.sh"
-alias wt="zsh ~/.config/bin/git-worktree-manager.zsh"
+alias wt="treekanga"
+alias seshl='sesh connect "$(sesh list -i | gum filter --limit 1 --placeholder "Pick a sesh" --prompt="⚡")"'
+
+function sesh-sessions() {
+  {
+    exec </dev/tty
+    exec <&1
+    local session
+    session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
+    zle reset-prompt > /dev/null 2>&1 || true
+    [[ -z "$session" ]] && return
+    sesh connect $session
+  }
+}
+
+zle     -N             sesh-sessions
+bindkey -M emacs '\es' sesh-sessions
+bindkey -M vicmd '\es' sesh-sessions
+bindkey -M viins '\es' sesh-sessions
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -115,6 +132,6 @@ esac
 
 PATH=$PATH:~/.config/bin
 
-PATH=~/.console-ninja/.bin:$PATH
+export DISABLE_AUTO_TITLE='true'
 
 export PATH=$PATH:/Users/bfischer/.spicetify

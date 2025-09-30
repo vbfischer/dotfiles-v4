@@ -1,0 +1,14 @@
+session_name: Dev Session
+windows:
+  - window_name: dev window
+    layout: main-horizontal
+    focus: True
+    options:
+      main-pane-height: 70%
+    panes:
+      - shell_command:
+        - nvim
+        focus: true
+      - pane
+  - window_name: server window
+
