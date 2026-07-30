@@ -64,6 +64,7 @@ brew "yq"
 brew "zellij"
 brew "zoxide"
 brew "hashicorp/tap/terraform", trusted: true
+cask "1password"
 cask "1password-cli"
 cask "font-hack-nerd-font"
 cask "font-jetbrains-mono-nerd-font"
