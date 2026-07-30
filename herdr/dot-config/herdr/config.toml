@@ -294,7 +294,7 @@ rows = [["state_icon", "workspace", "$pr"], ["agent"]]
 # off = disable pop-up notifications
 # herdr = show in-app toasts
 # terminal = ask the outer terminal to show a desktop notification
-system = ask the OS notification service directly
+# system = ask the OS notification service directly
 # delivery = "off"
 # delay_seconds = 1
 
