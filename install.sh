@@ -14,6 +14,11 @@ fi
 echo "==> Installing packages from Brewfile"
 brew bundle install --file=Brewfile
 
+echo "==> Installing Claude Code (native installer)"
+if ! command -v claude >/dev/null 2>&1; then
+    curl -fsSL https://claude.ai/install.sh | bash
+fi
+
 echo "==> Signing in to 1Password CLI (needed for secret injection below)"
 if ! op whoami >/dev/null 2>&1; then
     echo "    Run 'op signin' in another terminal, then re-run this script, or press enter to continue without it."
@@ -39,7 +44,7 @@ fi
 
 echo "==> Done."
 echo "Remaining manual steps:"
-echo "  - Set up SSH keys (~/.ssh/github_org.pub, ~/.ssh/github_personal.pub) and 1Password SSH agent"
+echo "  - Sign into the 1Password app/CLI (SSH keys are agent-backed, nothing to copy)"
 echo "  - Sign in to GitHub CLI: gh auth login"
 echo "  - Open tmux and install plugins: prefix + I (TPM)"
 echo "  - Open Neovim and let lazy.nvim sync plugins"
