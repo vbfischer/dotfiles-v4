@@ -33,6 +33,16 @@ Each top-level directory is a stowable package:
 - Remove: `stow -D <package>`
 - Verify symlinks: `ls -la ~/.<config-file>`
 
+## New Machine Setup
+
+Run `./install.sh` — it installs Homebrew + everything in `Brewfile` (CLI tools, casks, VS Code extensions, npm globals), stows every package, and injects Claude Code secrets via `scripts/setup-claude-secrets.zsh` (requires 1Password CLI signed in).
+
+Manual steps not covered by the script:
+- SSH keys and `~/.ssh/config` (`github-personal` / `github-org` host aliases) for split personal/work GitHub auth
+- `gh auth login`
+- tmux plugins: open tmux, `prefix + I` (TPM)
+- Neovim plugin sync happens automatically on first launch (lazy.nvim)
+
 ## Conventions
 
 ### Theme: Catppuccin Frappe everywhere
