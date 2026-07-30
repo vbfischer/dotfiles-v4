@@ -1,0 +1,45 @@
+{
+  "effortLevel": "low",
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "gitkraken-hooks@gitkraken": true
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "bash '~/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  },
+  "mcpServers": {
+    "github": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "command": "npx",
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "op://Private/GitHub PAT/token"
+      }
+    },
+    "obsidian": {
+      "args": [
+        "-y",
+        "obsidian-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "OBSIDIAN_API_KEY": "op://Private/Obsidian API Key/credential"
+      }
+    }
+  },
+  "model": "sonnet",
+  "tui": "fullscreen"
+}

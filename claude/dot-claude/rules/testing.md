@@ -1,0 +1,5 @@
+- Test files colocated or in `__tests__/` directories, named `*.test.ts(x)` or `*.spec.ts(x)`
+- Use `describe`/`it` blocks with descriptive names
+- Prefer `jest.fn()` for mocks; avoid mocking implementation details
+- Test behavior, not implementation
+- Use `screen.getByRole`/`getByText` over `getByTestId` for React components (testing-library best practices)

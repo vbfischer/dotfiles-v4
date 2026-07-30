@@ -1,0 +1,4 @@
+- Shared types live in `libs/shared-types/`; don't duplicate types across packages
+- Client and server must not import from each other directly
+- Keep API contracts in shared types
+- Prefer composition over inheritance

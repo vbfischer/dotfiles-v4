@@ -1,0 +1,8 @@
+- Prefer single quotes, 4-space indentation, trailing commas (ES5) - match Prettier config
+- Use TypeScript strict types; avoid `any` unless explicitly justified
+- Naming: PascalCase for components/classes, camelCase for functions/variables, UPPER_SNAKE_CASE for constants
+- Prefer named exports over default exports
+- Keep files focused - one primary export per file
+- Import ordering: external deps → internal aliases → relative imports
+- No unused imports or variables
+- In Typescript, prefer union types over enum
