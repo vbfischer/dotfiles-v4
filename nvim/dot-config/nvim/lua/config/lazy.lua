@@ -14,8 +14,6 @@ require("lazy").setup({
     -- EXTRAS
     { import = "lazyvim.plugins.extras.lang.python" },
 
-    { import = "lazyvim.plugins.extras.ai.copilot" },
-    { import = "lazyvim.plugins.extras.ai.copilot-chat" },
     { import = "lazyvim.plugins.extras.coding.neogen" },
 
     { import = "lazyvim.plugins.extras.coding.mini-surround" },

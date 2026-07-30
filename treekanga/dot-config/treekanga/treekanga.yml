@@ -1,7 +1,32 @@
 repos:
   vcp-web:
+    bareRepoName: vcp-web.git_bare
     defaultBranch: main
     worktreeTargetDir: /code/vcp-web
+    postScript: ~/dotfiles-v4/scripts/setup-vcp-env.zsh
+    autoRunPostScript: true
+  vcp-web-api:
+    bareRepoName: vcp-web-api.git_bare
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-web-api
   vcp-report-generator:
+    bareRepoName: vcp-report-generator.git_bare
     defaultBranch: main
     worktreeTargetDir: /code/vcp-report-generator
+  spot-react:
+    defaultBranch: main
+    worktreeTargetDir: /code/spot-react
+  vcp-support-portal:
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-support-portal
+  vcp-opi-ordering:
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-opi-ordering
+  vcp-support-portal-next:
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-support-portal-next
+    postScript: ~/dotfiles-v4/scripts/setup-support-portal.zsh
+    autoRunPostScript: true
+  vcp-rs-admin-portal:
+    defaultBranch: main
+    worktreeTargetDir: /code/vcp-rs-admin-portal

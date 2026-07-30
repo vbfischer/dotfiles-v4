@@ -1,0 +1,1 @@
+op read op://Private/vcp-web-env/notesPlain >> ./packages/server/.env

@@ -1,0 +1,7 @@
+{
+  // Stop spell-check squiggles in CLAUDE.md (tool names, etc.)
+  "cSpell.ignorePaths": ["**/CLAUDE.md"],
+  "[markdown]": {
+    "editor.spellChecking": false
+  }
+}

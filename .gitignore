@@ -1,1 +1,7 @@
 .zshrc.local
+navi/dot-config/navi/navi.log
+herdr/dot-config/herdr/*
+!herdr/dot-config/herdr/.gitkeep
+!herdr/dot-config/herdr/config.toml
+!herdr/dot-config/herdr/plugins.json
+!herdr/dot-config/herdr/.plugins.lock

@@ -4,6 +4,10 @@
 startup_command = "tmuxp load mysession -a"
 
 [[session]]
+name = "Support Portal Next"
+path = "~/code/vcp-support-portal-next/main"
+
+[[session]]
 name = "VCP Main"
 path = "~/code/vcp-web/main"
 startup_command = "tmuxp load mysession -a"
@@ -11,6 +15,14 @@ startup_command = "tmuxp load mysession -a"
 [[session]]
 name = "VCP Report Generator Main"
 path = "~/code/vcp-report-generator/main"
+
+[[session]]
+name = "VCP RS Admin Portal"
+path = "~/code/vcp-rs-admin-portal/main"
+
+[[session]]
+name = "Spot React"
+path = "~/code/spot-react/main"
 
 [[session]]
 name = "Dotfiles"

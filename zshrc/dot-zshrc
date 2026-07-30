@@ -73,47 +73,69 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-export EDITOR='nvim'
+export EDITOR='cursor --wait'
+export VISUAL='cursor --wait'
 
 
 # Aliases
-alias ll="eza -l -g --icons"
-alias ls="eza -l -g --icons"
-alias la="eza -l -a --icons"
+alias ll="eza -l -g --icons=auto"
+alias ls="eza -l -g --icons=auto"
+alias la="eza -l -a --icons=auto"
 alias lt="eza -T"
 alias lg="ll --gitignore"
 alias cbr='git branch --sort=-committerdate | fzf --header "Checkout Recent Branch" --preview "git diff {1} --color=always | delta" --pointer="" | xargs git checkout'
 alias swt="source switch-worktree.sh"
 alias cwt="source create-worktree.sh"
 
-alias nnvim='NVIM_APPNAME="nvim-new" nvim'
-alias astro-nvim='NVIM_APPNAME="nvim-astro" nvim'
 alias gws="~/.config/bin/git-worktree-switch.sh"
 alias gwc="~/.config/bin/git-worktree-fzf.sh"
 alias wt-menu="~/.config/bin/git-worktree-menu.sh"
-alias wt="treekanga"
-alias seshl='sesh connect "$(sesh list -i | gum filter --limit 1 --placeholder "Pick a sesh" --prompt="⚡")"'
+# alias wt="treekanga"
+  
+  # Function to setup claude config in any worktree
+  setup_claude_config() {
+      local worktree_path="$1"
+      cd "$worktree_path"
 
-function sesh-sessions() {
-  {
-    exec </dev/tty
-    exec <&1
-    local session
-    session=$(sesh list -t -c | fzf --height 40% --reverse --border-label ' sesh ' --border --prompt '⚡  ')
-    zle reset-prompt > /dev/null 2>&1 || true
-    [[ -z "$session" ]] && return
-    sesh connect $session
+      # Create .claude directory if it doesn't exist
+      mkdir -p .claude
+
+      # Remove existing mcp.json if it exists
+      rm -f .claude/mcp.json
+
+      # Create symlink to shared config
+      ln -s ~/.config/claude-code/mcp.json .claude/mcp.json
+
+      echo "✅ Claude Code config linked in $worktree_path"
   }
-}
+  # Function to create new worktree with Claude Code config
+  git-worktree-add() {
+      if [ $# -eq 0 ]; then
+          echo "Usage: git-worktree-add <path> [branch]"
+          return 1
+      fi
 
-zle     -N             sesh-sessions
-bindkey -M emacs '\es' sesh-sessions
-bindkey -M vicmd '\es' sesh-sessions
-bindkey -M viins '\es' sesh-sessions
+      local worktree_path="$1"
+      local branch="$2"
+
+      # Create the worktree
+      if [ -n "$branch" ]; then
+          git worktree add "$worktree_path" "$branch"
+      else
+          git worktree add "$worktree_path"
+      fi
+
+      # Setup Claude Code config
+      cd "$worktree_path"
+      mkdir -p .claude
+      ln -s ~/.config/claude-code/mcp.json .claude/mcp.json
+
+      echo "✅ Worktree created with Claude Code config at $worktree_path"
+      cd - > /dev/null
+  }
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 export PATH="$PATH:/Users/bfischer/.local/bin"
 
@@ -134,4 +156,18 @@ PATH=$PATH:~/.config/bin
 
 export DISABLE_AUTO_TITLE='true'
 
-export PATH=$PATH:/Users/bfischer/.spicetify
+export DOCKER_BUILDKIT=1
+export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
+
+export PATH=$HOME/.volta/bin:$PATH:/Users/bfischer/.spicetify
+export NODE_EXTRA_CA_CERTS=~/ca-certificates.pem
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+# export SDKMAN_DIR="$HOME/.sdkman"
+# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+PATH=~/.console-ninja/.bin:$PATH
+eval "$(zoxide init --cmd cd zsh)"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi

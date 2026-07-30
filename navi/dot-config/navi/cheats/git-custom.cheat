@@ -1,0 +1,44 @@
+% git, worktree, cleanup
+
+# Interactive worktree menu with all options
+git wt-menu
+
+# Create new worktree with branch and setup dependencies
+git wt-setup <branch_name>
+
+# Show status of all worktrees
+git wt-status
+
+# Prune stale worktree references
+git wt-prune
+
+# Interactively delete worktrees using fzf
+git clean-worktree
+
+# Interactively delete branches with gone upstream using fzf
+git clean-gone
+
+# Force push with lease (safer than regular force push)
+git push-force
+
+# Push with force-with-lease to specific branch
+git push --force-with-lease origin <branch_name>
+
+# List all worktrees
+git worktree list
+
+# Add new worktree for existing branch
+git worktree add <path> <branch_name>
+
+# Add new worktree and create new branch
+git worktree add <path> -b <new_branch>
+
+# Remove worktree
+git worktree remove <path>
+
+# Switch to worktree directory (helper command)
+cd <worktree_path>
+
+$ branch_name: git branch -a --format="%(refname:short)" | sed 's/^origin\///' | sort -u
+$ worktree_path: git worktree list | awk '{print $1}'
+$ path: echo "../"
