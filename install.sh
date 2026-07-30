@@ -22,7 +22,7 @@ fi
 
 STOW_PACKAGES=(
     btop claude ghostty gitconfig herdr kitty lazygit navi
-    nvim nvim-new sesh thefuck tmux tmuxp treekanga warp worktrunk zshrc
+    nvim nvim-new sesh ssh thefuck tmux tmuxp treekanga warp worktrunk zshrc
 )
 
 echo "==> Stowing packages: ${STOW_PACKAGES[*]}"

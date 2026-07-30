@@ -20,6 +20,7 @@ Each top-level directory is a stowable package:
 | `nvim-new/` | `~/.config/nvim-new/` | Experimental Neovim rebuild (access via `nnvim`) |
 | `scripts/` | — | Utility scripts (1Password secrets injection) |
 | `sesh/` | `~/.config/sesh/` | Tmux session manager |
+| `ssh/` | `~/.ssh/` | SSH config: 1Password `IdentityAgent` + `github-personal`/`github.com` host aliases for split personal/work GitHub auth. Trimmed of machine-specific `Include` lines (colima, CodeSandbox) |
 | `thefuck/` | `~/.config/thefuck/` | Command correction tool |
 | `tmux/` | `~/.config/tmux/` | Tmux config (prefix: `C-a`, TPM plugins) |
 | `tmuxp/` | `~/.config/tmuxp/` | Tmux session layouts |
@@ -38,7 +39,7 @@ Each top-level directory is a stowable package:
 Run `./install.sh` — it installs Homebrew + everything in `Brewfile` (CLI tools, casks, VS Code extensions, npm globals), stows every package, and injects Claude Code secrets via `scripts/setup-claude-secrets.zsh` (requires 1Password CLI signed in).
 
 Manual steps not covered by the script:
-- SSH keys and `~/.ssh/config` (`github-personal` / `github-org` host aliases) for split personal/work GitHub auth
+- Sign into the 1Password app/CLI (SSH keys are 1Password-agent-backed, not stored on disk — nothing to copy)
 - `gh auth login`
 - tmux plugins: open tmux, `prefix + I` (TPM)
 - Neovim plugin sync happens automatically on first launch (lazy.nvim)
