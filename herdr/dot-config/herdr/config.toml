@@ -288,7 +288,7 @@ rows = [["state_icon", "$repo"], ["workspace", "$pr"], ["agent"]]
 # Inline token styles accept strict #RGB/#RRGGBB foregrounds plus bold and dim booleans.
 [ui.sidebar.spaces]
 # Blank rows between space entries. Set to 1 to restore the previous spacing.
-row_gap = 1
+row_gap = 0
 rows = [["state_icon", "$repo"], ["workspace"], ["branch", "git_status"]]
 
 # Accent color for highlights, borders, and navigation UI.
