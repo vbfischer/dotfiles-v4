@@ -5,3 +5,7 @@ herdr/dot-config/herdr/*
 !herdr/dot-config/herdr/config.toml
 !herdr/dot-config/herdr/plugins.json
 !herdr/dot-config/herdr/.plugins.lock
+!herdr/dot-config/herdr/plugins/
+herdr/dot-config/herdr/plugins/*
+!herdr/dot-config/herdr/plugins/local/
+!herdr/dot-config/herdr/plugins/local/**

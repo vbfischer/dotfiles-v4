@@ -111,6 +111,12 @@ type = "plugin_action"
 command = "jt.command-palette.open"
 description = "open command palette"
 
+[[keys.command]]
+key = "prefix+p"
+type = "plugin_action"
+command = "ray.plugin-manager.open"
+description = "open plugin manager"
+
 # Prefix-mode actions
 # help = "prefix+?"
 # settings = "prefix+s"
@@ -268,7 +274,7 @@ directory = "~/code"
 # Omitted style fields preserve the contextual default.
 agent_panel_sort = "spaces"
 [ui.sidebar.agents]
-rows = [["state_icon", "workspace", "$pr"], ["agent"]]
+rows = [["state_icon", "$repo"], ["workspace", "$pr"], ["agent"]]
 
 # Blank rows between agent entries. Set to 1 to restore the previous spacing.
 # row_gap = 0
@@ -280,10 +286,10 @@ rows = [["state_icon", "workspace", "$pr"], ["agent"]]
 # Expanded space rows. Built-ins are state_icon, state_text, workspace, branch, and git_status.
 # Custom values reported through workspace metadata use a $name token, for example $jj_status.
 # Inline token styles accept strict #RGB/#RRGGBB foregrounds plus bold and dim booleans.
-# [ui.sidebar.spaces]
+[ui.sidebar.spaces]
 # Blank rows between space entries. Set to 1 to restore the previous spacing.
-# row_gap = 0
-# rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+row_gap = 1
+rows = [["state_icon", "$repo"], ["workspace"], ["branch", "git_status"]]
 
 # Accent color for highlights, borders, and navigation UI.
 # Accepts: hex (#89b4fa), named colors (cyan, blue, magenta), or rgb(r,g,b)

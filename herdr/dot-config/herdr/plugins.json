@@ -251,7 +251,7 @@
   {
     "plugin_id": "persiyanov.reviewr",
     "name": "reviewr",
-    "version": "0.26.1",
+    "version": "0.29.0",
     "min_herdr_version": "0.7.5",
     "description": "Review agent-written diffs beside the chat and add line comments to the agent input.",
     "manifest_path": "/Users/bfischer/dotfiles-v4/herdr/dot-config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8/herdr-plugin.toml",
@@ -272,40 +272,40 @@
     "actions": [
       {
         "id": "close",
-        "title": "reviewr: close sidebar",
+        "title": "reviewr: close pane",
         "contexts": [
           "pane",
           "workspace"
         ],
         "command": [
           "bash",
-          "herdr/sidebar.sh",
+          "herdr/pane.sh",
           "close"
         ]
       },
       {
         "id": "open",
-        "title": "reviewr: open sidebar",
+        "title": "reviewr: open pane",
         "contexts": [
           "pane",
           "workspace"
         ],
         "command": [
           "bash",
-          "herdr/sidebar.sh",
+          "herdr/pane.sh",
           "open"
         ]
       },
       {
         "id": "toggle",
-        "title": "reviewr: toggle sidebar",
+        "title": "reviewr: toggle pane",
         "contexts": [
           "pane",
           "workspace"
         ],
         "command": [
           "bash",
-          "herdr/sidebar.sh",
+          "herdr/pane.sh",
           "toggle"
         ]
       }
@@ -315,14 +315,14 @@
         "on": "worktree.created",
         "command": [
           "bash",
-          "herdr/sidebar.sh",
+          "herdr/pane.sh",
           "auto-open"
         ]
       }
     ],
     "panes": [
       {
-        "id": "sidebar",
+        "id": "pane",
         "title": "reviewr",
         "placement": "split",
         "command": [
@@ -336,9 +336,126 @@
       "kind": "github",
       "owner": "persiyanov",
       "repo": "herdr-reviewr",
-      "resolved_commit": "6c304925142b983381e166333d3e9ce403121ef6",
+      "resolved_commit": "42ccaaa72176937181c82a91484f97466fb5ed59",
       "managed_path": "/Users/bfischer/.config/herdr/plugins/github/persiyanov.reviewr-e87b654a74f8",
-      "installed_unix_ms": 1785337950563
+      "installed_unix_ms": 1785770348499
+    }
+  },
+  {
+    "plugin_id": "ray.plugin-manager",
+    "name": "Plugin Manager",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.4",
+    "description": "Manage herdr plugins from a popup: list, install, update, enable/disable, uninstall, browse the marketplace, open repo in browser, edit plugins.json",
+    "manifest_path": "/Users/bfischer/dotfiles-v4/herdr/dot-config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0/herdr-plugin.toml",
+    "plugin_root": "/Users/bfischer/dotfiles-v4/herdr/dot-config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "actions": [
+      {
+        "id": "open",
+        "title": "Open plugin manager",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "-c",
+          "exec \"${HERDR_BIN_PATH:-herdr}\" plugin pane open --plugin ray.plugin-manager --entrypoint manager --placement popup --focus"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "manager",
+        "title": "Plugin Manager",
+        "placement": "popup",
+        "width": 74,
+        "height": 22,
+        "command": [
+          "bash",
+          "-c",
+          "exec bash \"$HERDR_PLUGIN_ROOT/bin/manager.sh\""
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "speardragon",
+      "repo": "herdr-plugin-manager",
+      "resolved_commit": "b887396d7bd1358afcba595298af7ef352f650d0",
+      "managed_path": "/Users/bfischer/.config/herdr/plugins/github/ray.plugin-manager-75f462e8e1d0",
+      "installed_unix_ms": 1785770278021
+    }
+  },
+  {
+    "plugin_id": "repo-name-reporter",
+    "name": "Repo Name Reporter",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.4",
+    "description": "Reports each workspace's git repo name as a $repo sidebar token, so [ui.sidebar.spaces] rows can show the repo name alongside the folder name.",
+    "manifest_path": "/Users/bfischer/dotfiles-v4/herdr/dot-config/herdr/plugins/local/repo-name-reporter/herdr-plugin.toml",
+    "plugin_root": "/Users/bfischer/dotfiles-v4/herdr/dot-config/herdr/plugins/local/repo-name-reporter",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "actions": [
+      {
+        "id": "refresh",
+        "title": "Refresh repo name",
+        "contexts": [
+          "workspace"
+        ],
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      }
+    ],
+    "events": [
+      {
+        "on": "pane.focused",
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      },
+      {
+        "on": "workspace.created",
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      },
+      {
+        "on": "workspace.focused",
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      },
+      {
+        "on": "worktree.created",
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      },
+      {
+        "on": "worktree.opened",
+        "command": [
+          "bash",
+          "update-repo-name.sh"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "local"
     }
   },
   {
@@ -524,9 +641,9 @@
       "kind": "github",
       "owner": "paulbkim-dev",
       "repo": "vim-herdr-navigation",
-      "resolved_commit": "53e318c772c4d3b7fbd904ac43bcf3e5b5d8b244",
+      "resolved_commit": "820d48f5d9c9a7dece6a4bebfa3982ec30bbfbb7",
       "managed_path": "/Users/bfischer/.config/herdr/plugins/github/vim-herdr-navigation-a8bf42123d81",
-      "installed_unix_ms": 1785337620593
+      "installed_unix_ms": 1785770336862
     }
   },
   {

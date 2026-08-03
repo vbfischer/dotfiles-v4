@@ -1,0 +1,32 @@
+id = "repo-name-reporter"
+name = "Repo Name Reporter"
+version = "0.1.0"
+min_herdr_version = "0.7.4"
+description = "Reports each workspace's git repo name as a $repo sidebar token, so [ui.sidebar.spaces] rows can show the repo name alongside the folder name."
+platforms = ["macos", "linux"]
+
+[[actions]]
+id = "refresh"
+title = "Refresh repo name"
+contexts = ["workspace"]
+command = ["bash", "update-repo-name.sh"]
+
+[[events]]
+on = "workspace.created"
+command = ["bash", "update-repo-name.sh"]
+
+[[events]]
+on = "workspace.focused"
+command = ["bash", "update-repo-name.sh"]
+
+[[events]]
+on = "worktree.opened"
+command = ["bash", "update-repo-name.sh"]
+
+[[events]]
+on = "worktree.created"
+command = ["bash", "update-repo-name.sh"]
+
+[[events]]
+on = "pane.focused"
+command = ["bash", "update-repo-name.sh"]
