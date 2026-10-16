@@ -20,3 +20,7 @@ When opening a project that lacks `memory/MEMORY.md`, create one with:
 - New domain insights go into the relevant topic file under `~/.claude/memory/domain/`
 - Review and prune stale entries when they conflict with observed project state
 - Link from repo MEMORY.md to global topic files when relevant
+
+<!-- postman-cli:installation:start -->
+Postman CLI is installed on this device, and can be used for API Engineering work.
+<!-- postman-cli:installation:end -->

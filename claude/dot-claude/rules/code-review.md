@@ -10,4 +10,4 @@ When reviewing code (PRs, diffs, or files):
 Flag these as violations that must be fixed:
 - `console.log` / `console.error` in `src/` files
 - casting a type using `as` unless really needed. Prefer narrowing or type guards
-- any new translations added, but the languages files have not been updated (pnpm i18n)
+- any new translations added, but the languages files have not been updated. In project `vcp-web`, run `pnpm i18n` to update them; that script exists only in `vcp-web`, so do not run or require it in other projects (e.g. `vcp-opi-ordering`, where the language files are edited directly)
