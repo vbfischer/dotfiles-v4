@@ -23,3 +23,11 @@ claude/dot-claude/skills/signing-in-to-aws/
 # Claude Desktop skill sync and Claude Code trash
 claude/dot-claude/skills/synced/
 claude/dot-claude/skills/.trash/
+
+# generated / machine-local files
+__pycache__/
+*.pyc
+worktrunk/dot-config/worktrunk/config.toml.bak
+worktrunk/dot-config/worktrunk/config.toml.lock
+ssh/dot-ssh/known_hosts
+ssh/dot-ssh/known_hosts.old
