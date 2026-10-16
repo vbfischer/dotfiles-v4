@@ -13,3 +13,13 @@ herdr/dot-config/herdr/plugins/*
 # local HTTP client secrets
 http/**/.env
 http/**/http-client.private.env.json
+
+# managed by `aws agent-toolkit` (add-skill / update-skill / remove-skill)
+claude/dot-claude/skills/aws-*/
+claude/dot-claude/skills/amazon-bedrock/
+claude/dot-claude/skills/launch-with-aws/
+claude/dot-claude/skills/signing-in-to-aws/
+
+# Claude Desktop skill sync and Claude Code trash
+claude/dot-claude/skills/synced/
+claude/dot-claude/skills/.trash/
