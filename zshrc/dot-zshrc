@@ -1,5 +1,5 @@
 # Load secrets not stored in github...
-source "$HOME/.zshrc.local"
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -73,8 +73,8 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-export EDITOR='cursor --wait'
-export VISUAL='cursor --wait'
+export EDITOR='code --wait'
+export VISUAL='code --wait'
 
 
 # Aliases
@@ -90,7 +90,6 @@ alias cwt="source create-worktree.sh"
 alias gws="~/.config/bin/git-worktree-switch.sh"
 alias gwc="~/.config/bin/git-worktree-fzf.sh"
 alias wt-menu="~/.config/bin/git-worktree-menu.sh"
-# alias wt="treekanga"
   
   # Function to setup claude config in any worktree
   setup_claude_config() {
@@ -134,13 +133,25 @@ alias wt-menu="~/.config/bin/git-worktree-menu.sh"
       cd - > /dev/null
   }
 
+# AWS SSO credentials for vcp-opi-ordering
+opi-aws() {
+    aws sso login --profile vcp-opi-ordering && \
+    eval "$(aws configure export-credentials --profile vcp-opi-ordering --format env)"
+}
+
+# mvn wrapper for git-worktree checkouts (fixes git-commit-id-maven-plugin
+# failing with "Bare Repository has neither a working tree, nor an index")
+mvnw-wt() {
+    GIT_DIR="$(pwd)/.git" GIT_WORK_TREE="$(pwd)" mvn -Dmaven.gitcommitid.nativegit=true "$@"
+}
+
 # Shell integrations
 eval "$(fzf --zsh)"
 
 export PATH="$PATH:/Users/bfischer/.local/bin"
 
-source /Users/bfischer/.config/op/plugins.sh
-eval $(thefuck --alias)
+[[ -f /Users/bfischer/.config/op/plugins.sh ]] && source /Users/bfischer/.config/op/plugins.sh
+command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 
 export PATH="~/.config/bin:$PATH"
 
@@ -157,8 +168,9 @@ PATH=$PATH:~/.config/bin
 export DISABLE_AUTO_TITLE='true'
 
 export DOCKER_BUILDKIT=1
-export DOCKER_HOST="unix://$HOME/.colima/default/docker.sock"
 
+export JAVA_HOME="$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 export PATH=$HOME/.volta/bin:$PATH:/Users/bfischer/.spicetify
 export NODE_EXTRA_CA_CERTS=~/ca-certificates.pem
 
@@ -168,6 +180,13 @@ export NODE_EXTRA_CA_CERTS=~/ca-certificates.pem
 
 
 PATH=~/.console-ninja/.bin:$PATH
-eval "$(zoxide init --cmd cd zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/bfischer/.docker/completions $fpath)
+autoload -Uz compinit
+(( ${+_comps[docker]} )) || compinit
+# End of Docker CLI completions
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+alias ordering-db='mysql -h 127.0.0.1 -P 3306 -u ordering -pordering ordering'

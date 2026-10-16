@@ -389,3 +389,39 @@ worktree-path = "{{ repo_path }}/../{{ branch }}"
 # ## Hooks
 #
 # See `wt hook` (https://worktrunk.dev/hook/) for hook types, execution order, template variables, and examples. User hooks apply to all projects; project hooks (https://worktrunk.dev/config/#project-configuration) apply only to that repository.
+
+[projects."github.com/idexx-laboratories/vcp-web"]
+post-start = "op read op://Private/vcp-web-env/notesPlain >> ./packages/server/.env"
+
+# herdr workspace per worktree — herdr is the navigation primitive, don't also cd the shell.
+[switch]
+cd = false
+
+[pre-start]
+herdr = "herdr workspace create --cwd '{{ worktree_path }}' --label '{{ worktree_path }}' --focus"
+
+# post-switch, not pre-switch: pre-switch runs before branch resolution, so
+# {{ branch }} / {{ worktree_path }} hold the raw picker selection (often an
+# absolute path), not the destination branch.
+[post-switch]
+herdr = """
+WS=$(herdr workspace list | jq -r --arg t '{{ worktree_path }}' \
+  '.result.workspaces[] | select(.label == $t) | .workspace_id' | head -1)
+if [ -n "$WS" ]; then
+  herdr workspace focus "$WS"
+else
+  herdr workspace create --cwd '{{ worktree_path }}' --label '{{ worktree_path }}' --focus
+fi
+"""
+
+# post-remove, not pre-remove: closing the herdr workspace kills the terminal
+# running `wt remove`, so a blocking pre-remove hook aborts the removal.
+[post-remove]
+herdr = """
+WS=$(herdr workspace list | jq -r --arg t '{{ worktree_path }}' \
+  '.result.workspaces[] | select(.label == $t) | .workspace_id' | head -1)
+[ -n "$WS" ] && herdr workspace close "$WS" || true
+"""
+
+[commit.generation]
+command = "MAX_THINKING_TOKENS=0 claude -p --no-session-persistence --model=haiku --tools='' --safe-mode --setting-sources='user' --system-prompt=''"

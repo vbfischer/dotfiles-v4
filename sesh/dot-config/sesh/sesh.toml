@@ -1,7 +1,8 @@
 # common
 
-[default_session]
-startup_command = "tmuxp load mysession -a"
+[[session]]
+name = "VCP Web API"
+path = "~/code/vcp-web-api/main"
 
 [[session]]
 name = "Support Portal Next"
@@ -10,7 +11,6 @@ path = "~/code/vcp-support-portal-next/main"
 [[session]]
 name = "VCP Main"
 path = "~/code/vcp-web/main"
-startup_command = "tmuxp load mysession -a"
 
 [[session]]
 name = "VCP Report Generator Main"

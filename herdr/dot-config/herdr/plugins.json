@@ -127,9 +127,10 @@
       "kind": "github",
       "owner": "fullerzz",
       "repo": "herdr-plugin-sesh",
+      "requested_ref": "c505632cd5729229d1399e57e171d5c28425f0c6",
       "resolved_commit": "c505632cd5729229d1399e57e171d5c28425f0c6",
       "managed_path": "/Users/bfischer/.config/herdr/plugins/github/fullerzz.sesh-ac3fc6b2e1d3",
-      "installed_unix_ms": 1785335219382
+      "installed_unix_ms": 1785784015321
     }
   },
   {
