@@ -26,8 +26,8 @@ if ! op whoami >/dev/null 2>&1; then
 fi
 
 STOW_PACKAGES=(
-    btop claude ghostty gitconfig herdr kitty lazygit navi
-    nvim nvim-new sesh ssh thefuck tmux tmuxp treekanga warp worktrunk zshrc
+    btop claude ghostty gitconfig herdr navi
+    nvim sesh ssh thefuck tmux tmuxp treekanga worktrunk zshrc
 )
 
 echo "==> Stowing packages: ${STOW_PACKAGES[*]}"
