@@ -1,0 +1,68 @@
+### create-existing-order
+# @lang lua
+< {%
+local user = request.variables.get('API_USER')
+local pass = request.variables.get('API_PASSWORD')
+request.variables.set('AUTH_BASIC', vim.base64.encode(user .. ':' .. pass))
+%}
+
+POST /api/v1/order HTTP/1.1
+Host: {{HOST}}
+X-Pims-Id: {{PIMS_ID}}
+X-PIMS-VERSION: 1.0
+Content-Type: application/json
+Authorization: Basic {{AUTH_BASIC}}
+
+{
+  "editable": true,
+  "idexxOrderId": "string",
+  "notes": "string",
+  "ploBarcode": "{{PLO_BARCODE}}",
+  "patients": [
+    {
+      "birthdate": "2020-01-01",
+      "breedCode": null,
+      "client": {
+        "address": {
+          "city": "Portland",
+          "country": "",
+          "email": "string",
+          "phone": "string",
+          "postalCode": "04122",
+          "stateProvince": "ME",
+          "street1": "100 Main Street",
+          "street2": "string"
+        },
+        "firstName": "Tim",
+        "id": "string",
+        "isDoctor": false,
+        "isStaff": false,
+        "lastName": "Tom"
+      },
+      "genderCode": "MALE_INTACT",
+      "kennelClub": {
+        "id": "string",
+        "name": "string"
+      },
+      "microchip": "string",
+      "name": "Susie",
+      "patientAgeMonths": 0,
+      "patientAgeYears": 0,
+      "patientId": "string",
+      "speciesCode": "CANINE",
+      "weight": {
+        "measurement": 100,
+        "units": "POUNDS"
+      }
+    }
+  ],
+  "pdfURL": "string",
+  "petOwnerBilling": false,
+  "prevRefNum": "string",
+  "specimenCollectionDate": "",
+  "status": "CREATED",
+  "technician": "Sally",
+  "uiURL": "string",
+  "veterinarian": ""
+}
+

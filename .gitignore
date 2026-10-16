@@ -9,3 +9,7 @@ herdr/dot-config/herdr/*
 herdr/dot-config/herdr/plugins/*
 !herdr/dot-config/herdr/plugins/local/
 !herdr/dot-config/herdr/plugins/local/**
+
+# local HTTP client secrets
+http/**/.env
+http/**/http-client.private.env.json
