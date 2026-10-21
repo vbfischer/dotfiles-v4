@@ -5,7 +5,7 @@
 set -euo pipefail
 
 SRC="$HOME/dotfiles-v4/claude/dot-claude"
-VAULT="$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Programming/Programming"
+VAULT="$HOME/Obsidian/Programming"
 DEST="$VAULT/📚 Tech Library/Claude Agents"
 
 mkdir -p "$DEST"

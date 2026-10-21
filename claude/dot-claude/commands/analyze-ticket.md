@@ -1,6 +1,6 @@
 # Analyze ticket: $ARGUMENTS
 
-The Obsidian vault is at: `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Programming/Programming`
+The Obsidian vault is at: `~/Obsidian/Programming`
 
 Follow these steps exactly:
 
