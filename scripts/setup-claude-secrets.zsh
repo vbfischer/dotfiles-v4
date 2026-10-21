@@ -1,16 +1,23 @@
 #!/usr/bin/env zsh
-# Injects real secrets into ~/.claude/settings.json after `stow claude`.
-# Adjust the op:// item paths below to match your actual 1Password items.
+# Registers the Obsidian MCP server for Claude Code, reading its key from 1Password.
+# The server is stored at user scope in ~/.claude.json (not settings.json), so the
+# key never lives in the stowed dotfiles. Re-run after rotating the key.
+#
+# 1Password item (vault "Private"): Obsidian API Key / credential
+#
+# Uses the Local REST API plugin's non-encrypted HTTP port (27123) because the
+# HTTPS port uses a self-signed cert that Claude Code rejects.
+#
+# The github MCP server is intentionally not managed here: user scope applies to
+# every project, and replacing its token could break work repo access.
 set -euo pipefail
 
-SETTINGS="$HOME/.claude/settings.json"
-GITHUB_PAT=$(op read "op://Private/GitHub PAT/token")
+OBSIDIAN_URL="http://127.0.0.1:27123/mcp/"
+
 OBSIDIAN_KEY=$(op read "op://Private/Obsidian API Key/credential")
 
-tmp=$(mktemp)
-jq --arg gh "$GITHUB_PAT" --arg ob "$OBSIDIAN_KEY" \
-  '.mcpServers.github.env.GITHUB_PERSONAL_ACCESS_TOKEN = $gh
-   | .mcpServers.obsidian.env.OBSIDIAN_API_KEY = $ob' \
-  "$SETTINGS" > "$tmp" && mv "$tmp" "$SETTINGS"
+claude mcp remove obsidian --scope user >/dev/null 2>&1 || true
+claude mcp add --scope user --transport http obsidian "$OBSIDIAN_URL" \
+    --header "Authorization: Bearer $OBSIDIAN_KEY" >/dev/null
 
-echo "Injected secrets into $SETTINGS"
+echo "Registered obsidian MCP server"

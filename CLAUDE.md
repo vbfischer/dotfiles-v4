@@ -9,7 +9,7 @@ Each top-level directory is a stowable package:
 | Package | Target | Description |
 | ------- | ------ | ----------- |
 | `btop/` | `~/.config/btop/` | System monitor config |
-| `claude/` | `~/.claude/` | Claude Code global config (CLAUDE.md, rules/, commands/, skills/, hooks/, settings.json) — secrets in settings.json are placeholders, run `scripts/setup-claude-secrets.zsh` after stowing |
+| `claude/` | `~/.claude/` | Claude Code global config (CLAUDE.md, rules/, commands/, skills/, hooks/, settings.json) — run `scripts/setup-claude-secrets.zsh` after stowing to register the Obsidian MCP server (key read from 1Password) |
 | `ghostty/` | `~/.config/ghostty/` | Ghostty terminal (primary terminal) |
 | `gitconfig/` | `~/.gitconfig` | Git config, aliases, SSH signing via 1Password |
 | `herdr/` | `~/.config/herdr/` | herdr multiplexer config (currently just runtime state/logs — no real config file yet, package is a placeholder) |
@@ -36,7 +36,7 @@ Each top-level directory is a stowable package:
 
 ## New Machine Setup
 
-Run `./install.sh` — it installs Homebrew + everything in `Brewfile` (CLI tools, casks, VS Code extensions, npm globals), stows every package, and injects Claude Code secrets via `scripts/setup-claude-secrets.zsh` (requires 1Password CLI signed in).
+Run `./install.sh` — it installs Homebrew + everything in `Brewfile` (CLI tools, casks, VS Code extensions, npm globals), stows every package, and registers the Obsidian MCP server via `scripts/setup-claude-secrets.zsh` (requires 1Password CLI signed in).
 
 Manual steps not covered by the script:
 - Sign into the 1Password app/CLI (SSH keys are 1Password-agent-backed, not stored on disk — nothing to copy)

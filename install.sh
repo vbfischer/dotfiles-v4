@@ -35,7 +35,7 @@ for pkg in "${STOW_PACKAGES[@]}"; do
     stow -v "$pkg"
 done
 
-echo "==> Injecting Claude Code secrets"
+echo "==> Registering Obsidian MCP server"
 if command -v op >/dev/null 2>&1 && op whoami >/dev/null 2>&1; then
     ./scripts/setup-claude-secrets.zsh
 else
