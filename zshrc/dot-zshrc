@@ -167,6 +167,21 @@ PATH=$PATH:~/.config/bin
 
 export DISABLE_AUTO_TITLE='true'
 
+# Window title: "<repo> · <branch>" inside git repos, otherwise the cwd
+autoload -Uz add-zsh-hook
+_set_title() {
+    local common repo branch
+    common=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || {
+        print -Pn '\e]2;%~\a'
+        return
+    }
+    # Bare repo (~/code/<repo>/.bare) -> parent dir; normal repo (.git) -> parent dir
+    repo=${${common:h}:t}
+    branch=$(git branch --show-current 2>/dev/null)
+    print -n "\e]2;${repo} · ${branch:-detached}\a"
+}
+add-zsh-hook precmd _set_title
+
 export DOCKER_BUILDKIT=1
 
 export JAVA_HOME="$(brew --prefix openjdk@21)/libexec/openjdk.jdk/Contents/Home"

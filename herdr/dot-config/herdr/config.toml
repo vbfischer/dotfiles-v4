@@ -275,6 +275,11 @@ directory = "~/code"
 # A token occurrence may be styled with { token = "workspace", fg = "#89b4fa", bold = true, dim = false }.
 # Omitted style fields preserve the contextual default.
 agent_panel_sort = "spaces"
+
+# Outer terminal (Ghostty) window title. {terminal_title} is fed by the zsh
+# precmd hook (_set_title) as "<repo> · <branch>".
+window_title = "{terminal_title}"
+
 [ui.sidebar.agents]
 rows = [["state_icon", "$repo"], ["workspace", "$pr"], ["agent"]]
 
